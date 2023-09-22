@@ -1,0 +1,25 @@
+SELECT MAX(kids_count) over() as kidsCount,
+       MAX(category_id) over() as characterId,
+       MAX(character_count) over() as characterCount,
+       MAX(book_count) over() as bookCount,
+       MAX(parent_count) over() as parentCount
+  FROM (
+        SELECT category_id,
+               1 as kids_count,
+               count(1) as character_count,
+               0 as book_count,
+               0 as parent_count
+          FROM category_list
+         WHERE category_level = '3'
+         GROUP BY category_id
+        UNION
+        SELECT null as category_id,
+               1 as kids_count,
+               0 as character_count,
+               case when R.menu_type = 'B' then 1 else 0 end as book_count,
+               case when R.menu_type = 'P' then 1 else 0 end as parent_count
+          FROM voduser.rd_vl_category_map M
+          JOIN voduser.rd_vl_category R ON R.category_id = M.category_id AND R.category_gb = 'I30' AND R.nsc_gb = 'KID'
+         WHERE M.contents_id = :contentsId
+       ) X
+LIMIT 1
