@@ -101,7 +101,7 @@ public class Main {
 
         arrayList.forEach(System.out::println);
 
-
+        System.out.println("1 push");
 
 
     }
