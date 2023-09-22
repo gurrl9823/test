@@ -104,6 +104,7 @@ public class Main {
         System.out.println("1 push");
         System.out.println("2 push");
         System.out.println("3 push");
+        System.out.println("4 push");
 
 
     }
