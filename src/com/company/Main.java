@@ -103,6 +103,8 @@ public class Main {
 
         System.out.println("1 push");
 
+        System.out.println("2 push");
+
 
     }
 }
