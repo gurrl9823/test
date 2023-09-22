@@ -1,0 +1,5 @@
+SELECT MAX(book_read_count) as bookReadCount
+       round(cast(MAX(book_read_count) as numeric) / MAX(total_Book_count) * 100, 0) as bookReadRate
+       array_to_string(array_agg(album_name order by read_count desc), '\b') as favorBookList
+       array_to_string(array_agg(read_count order by read_count desc), '\b') as favorReadCount
+       (SELECT lastBookList FROM last_read_book) as lastBookList
